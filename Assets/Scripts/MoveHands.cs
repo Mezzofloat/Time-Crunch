@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting;
 using UnityEngine.UI;
 
 public class MoveHands : MonoBehaviour
@@ -12,6 +13,10 @@ public class MoveHands : MonoBehaviour
     const float HOURS_TO_ROTATION = Mathf.PI * 2 * Mathf.Rad2Deg / (30);
 
     float time;
+
+    void Awake() {
+        arc.fillAmount = 0;
+    }
 
     void Update()
     {

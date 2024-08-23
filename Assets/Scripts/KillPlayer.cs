@@ -11,16 +11,17 @@ public class KillPlayer : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag.Equals("Hand")) {
-            Die(true);
+            Die();
         }
     }
 
-    public void Die(bool shouldRestart) {
+    public void Die(bool shouldRestart = true) {
         gameOverScreen.SetActive(true);
         foreach (GameObject go in gos) {
             if (go != null) go.SetActive(false);
         }
         mp.SetFalse();
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
         if (shouldRestart) Invoke("End", 1);
     }
 

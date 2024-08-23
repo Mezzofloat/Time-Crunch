@@ -49,19 +49,21 @@ public class MovePlayer : MonoBehaviour
         x = xInput + transform.position.x;
         y = yInput + transform.position.y;
 
-        if (x*x + y*y <= 4.6f * 4.6f && !Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), input, 1/5f)) {
-            transform.Translate(input * speed * Time.deltaTime);
+        if (!Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), input,  1f/5)) {
+            transform.Translate(input * speed * Time.fixedDeltaTime);
         }
     }
 
     void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag.Equals("Box")) {
             animator.SetBool("IsPushing", true);
+            GetComponent<BoxCollider2D>().size = new Vector2(2, 2.3f);
         }
     }
     void OnCollisionExit2D(Collision2D other) {
         if (other.gameObject.tag.Equals("Box")) {
             animator.SetBool("IsPushing", false);
+            GetComponent<BoxCollider2D>().size = new Vector2(1, 2.3f);
         }
     }
 
