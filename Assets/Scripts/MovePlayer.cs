@@ -10,7 +10,7 @@ public class MovePlayer : MonoBehaviour
     Vector3 input;
     Vector3 prevPosition;
 
-    float xInput, yInput;
+    Vector3 xInput, yInput;
     float x, y;
 
     bool shouldMove = true;
@@ -43,27 +43,21 @@ public class MovePlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        xInput = input.x;
-        yInput = input.y;
+        xInput = new Vector3(input.x, 0);
+        yInput = new Vector3(0, input.y);
 
-        x = xInput + transform.position.x;
-        y = yInput + transform.position.y;
-
-        if (!Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), input,  1f/5)) {
-            transform.Translate(input * speed * Time.fixedDeltaTime);
-        }
+        transform.Translate(xInput * speed * Time.deltaTime);
+        transform.Translate(yInput * speed * Time.deltaTime);
     }
 
     void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag.Equals("Box")) {
             animator.SetBool("IsPushing", true);
-            GetComponent<BoxCollider2D>().size = new Vector2(2, 2.3f);
         }
     }
     void OnCollisionExit2D(Collision2D other) {
         if (other.gameObject.tag.Equals("Box")) {
             animator.SetBool("IsPushing", false);
-            GetComponent<BoxCollider2D>().size = new Vector2(1, 2.3f);
         }
     }
 
