@@ -8,22 +8,16 @@ public class MovePlayer : MonoBehaviour
     [SerializeField] float speed = 7f;
 
     Vector3 input;
-    Vector3 prevPosition;
 
     Vector3 xInput, yInput;
-    float x, y;
 
     bool shouldMove = true;
 
     Animator animator;
-    Rigidbody2D rb;
-
-    RaycastHit2D hit;
 
     void Awake() {
         animator = GetComponent<Animator>();
         animator.speed = 0.5f;
-        rb = GetComponent<Rigidbody2D>();
     }
 
     void OnMove(InputValue value)
